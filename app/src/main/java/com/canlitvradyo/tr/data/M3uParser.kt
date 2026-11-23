@@ -6,9 +6,9 @@ import java.net.URI
 
 object M3uParser {
 
-    private val logoRegex = Regex("tvg-logo="([^"]*)"")
-    private val groupRegex = Regex("group-title="([^"]*)"")
-    private val idRegex = Regex("tvg-id="([^"]*)"")
+    private val logoRegex = Regex("tvg-logo=\"([^\"]*)\"")
+    private val groupRegex = Regex("group-title=\"([^\"]*)\"")
+    private val idRegex = Regex("tvg-id=\"([^\"]*)\"")
 
     fun parse(m3uContent: String, type: ChannelType = ChannelType.TV): List<Channel> {
         val channels = mutableListOf<Channel>()
@@ -78,8 +78,8 @@ object M3uParser {
 
     private fun cleanChannelName(raw: String): String {
         return raw
-            .replace(Regex("\s*\(\d+p\)"), "")
-            .replace(Regex("\s*\[Not 24/7]", RegexOption.IGNORE_CASE), "")
+            .replace(Regex("\\s*\\(\\d+p\\)"), "")
+            .replace(Regex("\\s*\\[Not 24/7]", RegexOption.IGNORE_CASE), "")
             .trim()
             .ifEmpty { raw }
     }
